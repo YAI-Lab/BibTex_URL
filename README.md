@@ -19,9 +19,9 @@ Chrome 扩展 - 在 Google Scholar 一键复制带 URL 的 BibTeX 引用
 5. 点击「加载已解压的扩展程序」
 6. 选择解压后的文件夹
 
-![Step 1](assets/step1.png)
+![Step 3](assets/step3.png)
 
-![Step 2](assets/step2.png)
+![Step 4](assets/step4.png)
 
 ### 方法二：从源码安装
 
@@ -37,12 +37,12 @@ Chrome 扩展 - 在 Google Scholar 一键复制带 URL 的 BibTeX 引用
 2. 搜索论文
 3. 在论文下方找到红色的 "Import into BibTeX with URL" 链接
 
-![Step 3](assets/step3.png)
+![Step 1](assets/step1.png)
+
+![Step 2](assets/step2.png)
 
 4. 点击即可复制带 URL 的 BibTeX 到剪贴板
 5. 复制成功会显示 ✅
-
-![Step 4](assets/step4.png)
 
 ![Step 5](assets/step5.png)
 
