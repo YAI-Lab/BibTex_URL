@@ -19,10 +19,6 @@ Chrome 扩展 - 在 Google Scholar 一键复制带 URL 的 BibTeX 引用
 5. 点击「加载已解压的扩展程序」
 6. 选择解压后的文件夹
 
-![Step 3](assets/step3.png)
-
-![Step 4](assets/step4.png)
-
 ### 方法二：从源码安装
 
 1. 克隆或下载本仓库
@@ -34,17 +30,17 @@ Chrome 扩展 - 在 Google Scholar 一键复制带 URL 的 BibTeX 引用
 ## 使用方法
 
 1. 访问 [Google Scholar](https://scholar.google.com/)
-2. 搜索论文
-3. 在论文下方找到红色的 "Import into BibTeX with URL" 链接
+2. 使用前先打开扩展（点击 Chrome 右上角的扩展图标）
 
-![Step 1](assets/step1.png)
+![Step 3](assets/step3.png)
 
-![Step 2](assets/step2.png)
+![Step 4](assets/step4.png)
 
-4. 点击即可复制带 URL 的 BibTeX 到剪贴板
-5. 复制成功会显示 ✅
+3. 搜索论文，在论文下方找到红色的 "Import into BibTeX with URL" 链接，点击复制
 
 ![Step 5](assets/step5.png)
+
+4. 复制成功会显示 ✅，即可粘贴到你的论文中
 
 ![Step 6](assets/step6.png)
 
