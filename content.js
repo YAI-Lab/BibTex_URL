@@ -15,20 +15,20 @@ function addBibtexLinks() {
     const titleEl = paper.querySelector('.gs_rt a');
     const paperUrl = titleEl ? titleEl.href : '';
 
-    // 创建新链接 - 红色
-    const newLink = document.createElement('a');
-    newLink.href = 'javascript:void(0)';
-    newLink.textContent = 'Import into BibTeX with URL';
-    newLink.style.marginLeft = '10px';
-    newLink.style.color = '#d93025';  // 红色
-    newLink.style.cursor = 'pointer';
+    // 创建 Copy BibTeX 链接（不带 URL）
+    const copyLink = document.createElement('a');
+    copyLink.href = 'javascript:void(0)';
+    copyLink.textContent = 'Copy BibTeX';
+    copyLink.style.marginLeft = '10px';
+    copyLink.style.color = '#d93025';
+    copyLink.style.cursor = 'pointer';
 
-    newLink.addEventListener('click', async (e) => {
+    copyLink.addEventListener('click', async (e) => {
       e.preventDefault();
       e.stopPropagation();
 
       try {
-        // 通过 background script 获取完整的 BibTeX
+        // 获取原始 BibTeX
         const response = await chrome.runtime.sendMessage({
           action: 'fetchBibtex',
           url: importLink.href
@@ -37,18 +37,59 @@ function addBibtexLinks() {
         let bibtex = '';
         if (response && response.success) {
           bibtex = response.data.trim();
-        } else {
-          // fallback: 手动生成
-          const title = titleEl ? titleEl.textContent.replace(/\[.*?\]/g, '').trim() : '';
-          const authorEl = paper.querySelector('.gs_a');
-          const authorText = authorEl ? authorEl.textContent : '';
-          const author = authorText.split('-')[0].trim();
-          const yearMatch = paper.textContent.match(/\b(19|20)\d{2}\b/);
-          const year = yearMatch ? yearMatch[0] : '';
-          const firstAuthor = author.split(',')[0].split(' ')[0].toLowerCase().replace(/[^a-z]/g, '');
-          const citeKey = (firstAuthor || 'x') + year;
+        }
 
-          bibtex = `@article{${citeKey},\n  title={${title}},\n  author={${author}},\n  year={${year}}\n}`;
+        if (!bibtex) {
+          bibtex = 'Failed to get BibTeX';
+        }
+
+        // 复制
+        await navigator.clipboard.writeText(bibtex);
+
+        // 显示绿色 ✅ 提示
+        const msg = document.createElement('span');
+        msg.textContent = '✅';
+        msg.style.marginLeft = '5px';
+        msg.style.fontSize = '14px';
+
+        const prevMsg = paper.querySelector('.bibtex-copied-msg');
+        if (prevMsg) prevMsg.remove();
+
+        copyLink.parentNode.insertBefore(msg, copyLink.nextSibling);
+        msg.className = 'bibtex-copied-msg';
+        setTimeout(() => msg.remove(), 3000);
+
+      } catch (err) {
+        console.error('Copy failed:', err);
+      }
+    });
+
+    // 创建 Copy BibTeX with URL 链接（带 URL）
+    const copyWithUrlLink = document.createElement('a');
+    copyWithUrlLink.href = 'javascript:void(0)';
+    copyWithUrlLink.textContent = 'Copy BibTeX with URL';
+    copyWithUrlLink.style.marginLeft = '10px';
+    copyWithUrlLink.style.color = '#d93025';
+    copyWithUrlLink.style.cursor = 'pointer';
+
+    copyWithUrlLink.addEventListener('click', async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      try {
+        // 获取原始 BibTeX
+        const response = await chrome.runtime.sendMessage({
+          action: 'fetchBibtex',
+          url: importLink.href
+        });
+
+        let bibtex = '';
+        if (response && response.success) {
+          bibtex = response.data.trim();
+        }
+
+        if (!bibtex) {
+          bibtex = 'Failed to get BibTeX';
         }
 
         // 添加 URL
@@ -70,7 +111,7 @@ function addBibtexLinks() {
         const prevMsg = paper.querySelector('.bibtex-copied-msg');
         if (prevMsg) prevMsg.remove();
 
-        newLink.parentNode.insertBefore(msg, newLink.nextSibling);
+        copyWithUrlLink.parentNode.insertBefore(msg, copyWithUrlLink.nextSibling);
         msg.className = 'bibtex-copied-msg';
         setTimeout(() => msg.remove(), 3000);
 
@@ -79,7 +120,9 @@ function addBibtexLinks() {
       }
     });
 
-    importLink.parentNode.insertBefore(newLink, importLink.nextSibling);
+    // 插入链接
+    importLink.parentNode.insertBefore(copyLink, importLink.nextSibling);
+    copyLink.parentNode.insertBefore(copyWithUrlLink, copyLink.nextSibling);
   });
 }
 
