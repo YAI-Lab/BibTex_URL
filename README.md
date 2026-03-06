@@ -4,8 +4,10 @@ Chrome 扩展 - 在 Google Scholar 一键复制带 URL 的 BibTeX 引用
 
 ## 功能
 
-- 在 Google Scholar 每篇论文下方添加 "Import into BibTeX with URL" 链接
-- 点击即可复制完整的 BibTeX 引用，包含论文 URL
+- 在 Google Scholar 每篇论文下方添加两个复制链接：
+  - **Copy BibTeX** - 复制不带 URL 的 BibTeX
+  - **Copy BibTeX with URL** - 复制带 URL 的 BibTeX
+- 点击即可复制到剪贴板
 - 复制成功显示 ✅ 提示
 
 ## 安装方法
@@ -36,11 +38,14 @@ Chrome 扩展 - 在 Google Scholar 一键复制带 URL 的 BibTeX 引用
 
 ![Step 4](assets/step4.png)
 
-3. 搜索论文，在论文下方找到红色的 "Import into BibTeX with URL" 链接，点击复制
+3. 搜索论文，在论文下方找到两个红色链接：
+   - **Copy BibTeX** - 复制不带 URL 的引用
+   - **Copy BibTeX with URL** - 复制带 URL 的引用
+4. 点击需要的选项即可复制
 
 ![Step 5](assets/step5.png)
 
-4. 复制成功会显示 ✅，即可粘贴到你的论文中
+5. 复制成功会显示 ✅，即可粘贴到你的论文中
 
 ![Step 6](assets/step6.png)
 
